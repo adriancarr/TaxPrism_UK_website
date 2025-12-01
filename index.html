@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TaxPrism Support</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Support page for TaxPrism, an iOS app that helps UK users understand and track their tax."
+  />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card-bg: #ffffff;
+      --primary: #1b4fd8;
+      --primary-soft: #e1e8ff;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --border-soft: #e5e7eb;
+      --accent: #16a34a;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.08);
+      --radius-xl: 18px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #e0e7ff 0, #f5f7fb 38%, #ffffff 100%);
+      color: var(--text-main);
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 980px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .shell {
+        grid-template-columns: 1fr;
+        padding: 22px;
+      }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .app-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 20px;
+      background: radial-gradient(circle at 25% 20%, #eff6ff 0, #1b4fd8 35%, #0f172a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f9fafb;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.03em;
+      box-shadow: 0 12px 30px rgba(30, 64, 175, 0.45);
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0.02em;
+    }
+
+    .title-block p {
+      margin: 4px 0 0;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--primary-soft);
+      color: #1f2937;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .lead {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-main);
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin: 20px 0 6px;
+    }
+
+    .support-card {
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, #1b4fd8, #0f172a);
+      padding: 18px 18px 16px;
+      color: #e5edff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .support-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(209, 213, 219, 0.42), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.28), transparent 55%);
+      opacity: 0.75;
+      pointer-events: none;
+    }
+
+    .support-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .support-heading {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .support-copy {
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      color: #e5e7eb;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .contact-email {
+      font-size: 13px;
+    }
+
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(209, 213, 219, 0.7);
+      background: rgba(15, 23, 42, 0.45);
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      color: #e5edff;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.12s ease, box-shadow 0.12s ease;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.45);
+    }
+
+    .pill-link span.icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      font-size: 11px;
+    }
+
+    .pill-link:hover {
+      background: rgba(15, 23, 42, 0.7);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.7);
+    }
+
+    .meta-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 12px;
+      color: #cbd5f5;
+    }
+
+    .meta-list li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .meta-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(199, 210, 254, 0.95);
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 0;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .list-bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      margin-top: 6px;
+      background: var(--primary);
+      flex-shrink: 0;
+    }
+
+    /* Right column mock app card */
+
+    .mock-shell {
+      border-radius: 22px;
+      background: linear-gradient(155deg, #0f172a, #020617);
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.85);
+      color: #e5e7eb;
+    }
+
+    .mock-shell::before {
+      content: "";
+      position: absolute;
+      inset: -60px;
+      background:
+        radial-gradient(circle at 10% 0, rgba(96, 165, 250, 0.32), transparent 50%),
+        radial-gradient(circle at 110% 90%, rgba(56, 189, 248, 0.36), transparent 50%);
+      opacity: 0.95;
+      pointer-events: none;
+    }
+
+    .mock-inner {
+      position: relative;
+      z-index: 1;
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+      padding: 14px 14px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .mock-status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+
+    .mock-status-pills {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .mock-pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(55, 65, 81, 0.8);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #e5e7eb;
+    }
+
+    .mock-panel {
+      border-radius: 16px;
+      background: radial-gradient(circle at top, rgba(59, 130, 246, 0.16), transparent 55%),
+        rgba(15, 23, 42, 0.95);
+      padding: 12px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      margin-bottom: 12px;
+    }
+
+    .mock-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .mock-panel-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .mock-panel-chip {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .mock-panel-chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .mock-figure-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .mock-figure {
+      font-size: 22px;
+      font-weight: 700;
+      color: #f9fafb;
+    }
+
+    .mock-subcopy {
+      font-size: 11px;
+      color: #9ca3af;
+      line-height: 1.5;
+    }
+
+    .mock-bars {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .mock-bar {
+      height: 28px;
+      border-radius: 999px;
+      background: linear-gradient(to top, rgba(59, 130, 246, 0.5), rgba(96, 165, 250, 0.05));
+      overflow: hidden;
+      position: relative;
+    }
+
+    .mock-bar-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-radius: inherit;
+      background: linear-gradient(to top, #4ade80, #a7f3d0);
+    }
+
+    .mock-bar:nth-child(1) .mock-bar-fill {
+      height: 52%;
+    }
+
+    .mock-bar:nth-child(2) .mock-bar-fill {
+      height: 76%;
+    }
+
+    .mock-bar:nth-child(3) .mock-bar-fill {
+      height: 38%;
+    }
+
+    .mock-bar:nth-child(4) .mock-bar-fill {
+      height: 64%;
+    }
+
+    .mock-footer {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .mock-footer span.strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .mock-footer-pill {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+    }
+
+    .links-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 12px;
+    }
+
+    .links-row a {
+      color: var(--primary);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(37, 99, 235, 0.06);
+      border: 1px solid rgba(191, 219, 254, 0.8);
+      transition: background 0.12s ease, transform 0.1s ease;
+    }
+
+    .links-row a:hover {
+      background: rgba(37, 99, 235, 0.12);
+      transform: translateY(-0.5px);
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-soft);
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    footer span {
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <main class="shell" aria-label="TaxPrism support">
+      <!-- Left column: support content -->
+      <section>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Support for the iOS app</span>
+        </div>
+
+        <header class="header">
+          <div class="app-icon" aria-hidden="true">
+            TP
+          </div>
+          <div class="title-block">
+            <h1>TaxPrism Support</h1>
+            <p>Help for UK users managing tax with the TaxPrism iOS app.</p>
+          </div>
+        </header>
+
+        <p class="lead">
+          If you have a question about your account, have found a bug, or want to suggest a feature,
+          you can reach the TaxPrism team using the contact details below.
+        </p>
+
+        <div class="section-title">Get help</div>
+        <div class="support-card" role="region" aria-label="Contact support">
+          <div class="support-card-inner">
+            <div class="support-heading">Contact the TaxPrism team</div>
+            <p class="support-copy">
+              We aim to reply to support requests within 2 business days. For anything urgent, please
+              include "Urgent" in the email subject.
+            </p>
+            <div class="contact-row">
+              <div class="contact-email">
+                Email support:
+                <strong><a href="mailto:support@taxprism.co.uk" style="color:#e5edff;">support@taxprism.co.uk</a></strong>
+              </div>
+              <a class="pill-link" href="mailto:support@taxprism.co.uk?subject=TaxPrism%20support%20request">
+                <span class="icon">✉</span>
+                <span>Send a support email</span>
+              </a>
+            </div>
+            <ul class="meta-list" aria-label="Support guidelines">
+              <li>
+                <span class="meta-dot"></span>
+                <span>Include your device model and iOS version.</span>
+              </li>
+              <li>
+                <span class="meta-dot"></span>
+                <span>Attach screenshots if they help explain the issue.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="section-title">What TaxPrism does</div>
+        <ul class="list">
+          <li>
+            <span class="list-bullet"></span>
+            <span>Helps you understand how your UK tax is calculated across PAYE, self employment, and other income.</span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>Gives you a clearer picture of what you are likely to owe for the current tax year.</span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>Lets you test different income scenarios before they happen.</span>
+          </li>
+        </ul>
+
+        <div class="section-title">Frequently asked questions</div>
+        <ul class="list">
+          <li>
+            <span class="list-bullet"></span>
+            <span>
+              <strong>Does TaxPrism file my tax return for me?</strong><br />
+              No. TaxPrism is a planning and insight tool. It does not submit information to HMRC
+              and is not a replacement for professional advice.
+            </span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>
+              <strong>Is my data stored securely?</strong><br />
+              TaxPrism uses industry standard security practices. We only store the data needed
+              to provide the app and never sell your personal information.
+            </span>
+          </li>
+          <li>
+            <span class="list-bullet"></span>
+            <span>
+              <strong>How can I request my data to be deleted?</strong><br />
+              You can request deletion of your data from within the app or by emailing
+              <a href="mailto:support@taxprism.co.uk" style="color:#1b4fd8;">support@taxprism.co.uk</a>
+              from the email address linked to your account.
+            </span>
+          </li>
+        </ul>
+
+        <div class="links-row" aria-label="Policies and legal">
+          <a href="https://taxprism.co.uk/privacy" target="_blank" rel="noopener">Privacy policy</a>
+          <a href="https://taxprism.co.uk/terms" target="_blank" rel="noopener">Terms of use</a>
+        </div>
+
+        <footer>
+          <span>© 2025 TaxPrism. All rights reserved.</span>
+          <span>TaxPrism is not affiliated with HMRC.</span>
+        </footer>
+      </section>
+
+      <!-- Right column: mock app preview -->
+      <aside aria-label="TaxPrism app preview">
+        <div class="mock-shell">
+          <div class="mock-inner">
+            <div class="mock-status-row">
+              <span>Tax year: 2025 to 2026</span>
+              <div class="mock-status-pills">
+                <span class="mock-pill">UK tax view</span>
+                <span class="mock-pill">iOS app</span>
+              </div>
+            </div>
+
+            <div class="mock-panel">
+              <div class="mock-panel-header">
+                <div class="mock-panel-title">Estimated tax position</div>
+                <div class="mock-panel-chip">
+                  <span class="mock-panel-chip-dot"></span>
+                  <span>Updated today</span>
+                </div>
+              </div>
+              <div class="mock-figure-row">
+                <div class="mock-figure">£12,430</div>
+                <div class="mock-subcopy">
+                  Estimated income tax and NIC for the current tax year, based on your inputs.
+                </div>
+              </div>
+              <div class="mock-bars" aria-hidden="true">
+                <div class="mock-bar"><div class="mock-bar-fill"></div></div>
+                <div class="mock-bar"><div class="mock-bar-fill"></div></div>
+                <div class="mock-bar"><div class="mock-bar-fill"></div></div>
+                <div class="mock-bar"><div class="mock-bar-fill"></div></div>
+              </div>
+            </div>
+
+            <div class="mock-panel">
+              <div class="mock-panel-header">
+                <div class="mock-panel-title">Key drivers</div>
+              </div>
+              <div class="mock-subcopy">
+                • PAYE salary<br />
+                • Self employment income<br />
+                • Dividends and savings interest<br />
+                • Personal allowance and thresholds
+              </div>
+              <div class="mock-footer">
+                <span class="strong">Change a scenario in the app to see how your tax could shift.</span>
+                <span class="mock-footer-pill">Scenario planning</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>
